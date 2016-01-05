@@ -22,7 +22,7 @@
 
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+
 
 \chapter{A guide for writing chapters}
 
