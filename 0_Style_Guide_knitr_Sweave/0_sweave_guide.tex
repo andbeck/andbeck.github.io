@@ -1,0 +1,97 @@
+%% This file contains example tex and sweave, e.g., for inserting figures, referencing figures, intext code.
+
+
+\documentclass[10pt,a4paper]{book}
+\usepackage{url}
+\usepackage{fancybox}
+\usepackage{textcomp}
+\usepackage{float}
+\usepackage[T1]{fontenc}
+\usepackage{mdframed}
+\newcommand{\midtilde}{\raisebox{0.5ex}{\texttildelow}}
+
+%% Next chunk is setup for simple boxes
+%% Needs to go at the start of any chapter with boxes
+\mdfdefinestyle{theoremstyle}{%
+  linecolor=blue,linewidth=2pt,%
+  frametitlerule=true,%
+  innertopmargin=\topskip,
+}
+\mdtheorem[style=theoremstyle]{text_box}{Box}[chapter]
+
+
+
+\usepackage{Sweave}
+\begin{document}
+\input{0_sweave_guide-concordance}
+
+\chapter{A guide for writing chapters}
+
+\section{A section title}
+
+\subsection{A subsection title}
+
+\subsubsection{A sub-subsection title}
+
+\subsubsection{How to compile a chapter}
+
+In Rstudio preferences, Sweave, set "Weave Rnw files using" \textbf{knitr}. When ready, click "Compile PDF" button.
+
+\subsection{Inline code, url, emphasis, etc.}
+
+If we want some inline code that isn't evaluated do it like this: you can use the \texttt{plot()} function to plot graphs. Don't forget to put a slash before underscores, e.g. \texttt{group\_by}. Evaluated code goes like this: Pi = 3.14159265358979.
+
+A URL: \url{www.r4all.org}.
+
+How to \emph{emphasise some text} by making it italic. Or by making it \textbf{bold}.
+
+
+\subsection{Work-along-icons in the margins}
+
+\marginpar{work-a-long icon here}
+
+
+
+\subsection{Code chunks}
+
+Do it like this:
+
+\begin{Schunk}
+\begin{Sinput}
+> x <- 1:10
+\end{Sinput}
+\end{Schunk}
+
+Chunk options here: \url{http://yihui.name/knitr/options/}
+
+Including code tidying:
+  <<CX, tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50)>>=
+    lady.matrix <- tapply(lady$number, list(colour=lady$colour, Habitat=lady$Habitat), sum)
+    @
+
+See the difference:
+\begin{Schunk}
+\begin{Sinput}
+> lady.matrix <- tapply(lady$number, list(colour=lady$colour, Habitat=lady$Habitat), sum)
+\end{Sinput}
+\end{Schunk}
+
+\subsection{Importing data}
+
+Load the data from github with something like this:
+
+
+Note that we use the chunk options \texttt{echo=FALSE} and \texttt{message=FALSE} because we don't want this code to appear in the chapter. Rather, we want this to appear:
+
+\begin{Schunk}
+\begin{Sinput}
+> lady <- read.csv("ladybirds.csv")
+\end{Sinput}
+\end{Schunk}
+
+Though we don't want this run, so use the chunk option \texttt{eval=FALSE}.
+
+\subsubsection{Figures}
+
+Use a separate code chunk for each figure. The first chunk option is the figure label, to be used when making and in text citation (cross reference) to the figure (e.g., Fig. \ref{fig:x_y_squared-1}).
+
